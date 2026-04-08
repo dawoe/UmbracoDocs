@@ -52,6 +52,7 @@ The example below demonstrates how to add values programmatically using a Razor 
 
 ```csharp
 @using Umbraco.Cms.Core.Services
+@using Umbraco.Cms.Core;
 @inject IContentService ContentService
 @{
     // Create a variable for the GUID of the page you want to update
@@ -63,8 +64,11 @@ The example below demonstrates how to add values programmatically using a Razor 
     // Create a variable for the GUID of the member ID
     var authorId = Guid.Parse("ed944097281e4492bcdf783355219450");
 
+    // Create a udi
+    var memberUdi = Udi.Create(Constants.UdiEntityType.Member, authorId);
+
     // Set the value of the property with alias 'author'. 
-    content.SetValue("author", authorId);
+    content.SetValue("author", memberUdi);
 
     // Save the change
     ContentService.Save(content);
